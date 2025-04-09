@@ -7,15 +7,9 @@
 #include <time.h>
 #include <windows.h>
 
-// #define STR_LEN 5   // 输入状态序列字符长
-// #define K_STATE 128 // 状态空间大小为10
-// #define T_STATE 100 // 观测状态大小为10
+
 #define K_STATE 3965 // 状态空间大小为10                         修改为K相同的值
 #define T_STATE 50 // 观测状态大小为10
-// #define SUPER_K_STATE     20      //状态空间大小为200
-// #define SUPER_T_STATE     20
-// #define FST_SIZE    5       //firstN 大小
-// #define BST_SIZE    5       //bestN 大小
 
 #define obserRouteLEN 256 //观测路径长度 �?10                  修改为T相同的值
 
@@ -34,9 +28,6 @@ ElementType B[K_STATE][T_STATE];
 ElementType pi[K_STATE];
 int Obroute[obserRouteLEN]; // 观测序列
 
-// int spaceNaiveViterbiPath[obserRouteLEN];//space naive viterbi path
-//  int snvT2[K_STATE];               // T2_table,path
-//  int snvT3[K_STATE];               // Mid Table,midpath
 int snvOutPutPath[obserRouteLEN]; // output
 /// 存储队列相关///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -198,7 +189,7 @@ Status generate_state_heap(ElementType probability_i, int i, element **heap_tota
     { // 树未满时
         insert_binary_tree(position, probability_i, i, T3_State);
         (*num).Value++;
-        // 输出插入树后的结果,测试用
+
         //  printf("total number is %d ,new element is %lf  ,state is %d  ,T3 State is%d\n",(int)((*num).Value),(*position).Value,(*position).State,(*position).T3_State);
         return 0;
     }
@@ -235,30 +226,6 @@ Status generate_state_heap(ElementType probability_i, int i, element **heap_tota
         }
     }
 }
-
-// void chaneg_T2_i(int changestate,int changgelabel,int i,int statei_value){
-
-//     if (!changgelabel){         //=0时说明还没满，尚可以直接给T2赋值
-//         snvT2[i] =  statei_value;
-//         // printf("input state : %d , Arc: %d -> %d \n",insert,statei_value,i);
-//         }
-//     else if(changgelabel==1){   //=1时说明已经满了，且需要替换状态i，其对应的状态为statei_value，changgelabel是被替换的状态
-//         snvT2[i] =  statei_value;
-//         snvT2[changestate] =  -1;
-//         printf("change stae %d value to %d ,input state %d value to %d\n",snvT2[changestate],changestate,snvT2[i],i);
-//         }
-//     else{                       //=2时说明已经满了，且不需要替换
-//         snvT2[i] =  -1;
-//         printf("input stae %d value to %d\n",snvT2[i],i);
-//         }
-// }
-
-// void  Change_T3_element(element **heap,int snvT3[]){
-//     for (int i = 1; i<MAX_ELEMENTS+1; i++) {
-//         snvT3[(*((*heap) + i)).State]=(*((*heap) + i)).T3_State;
-//         // printf("heap element is %lf,state is %d,T3 state is %d\n",(*((*heap) + i)).Value,(*((*heap) + i)).State,(*((*heap) + i)).T3_State);}
-// }
-// }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -360,11 +327,6 @@ void InitMatrixA(char* str_MatrixA)
 
     if (tmpt)
     {
-        // ElementType tmpt[K_STATE*K_STATE]= {0};//大数组下溢出
-        //  FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixA_500plus500_fixed.txt", "rb+");//matrixA or matrixB
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\A.txt", "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\A_512.txt", "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\A_512.txt", "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
         FILE *fpRead = fopen(str_MatrixA, "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
 
         if (fpRead == NULL)
@@ -398,10 +360,6 @@ void InitMatrixB(char* str_MatrixB )
     ElementType *tmpt = (ElementType *)malloc(sizeof(ElementType) * K_STATE * T_STATE);
     if (tmpt)
     {
-        // static ElementType tmpt[K_STATE*T_STATE]= {0};
-        //  FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixB_500plus500_fixed.txt", "rb+");//matrixA or matrixB
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\B_512.txt", "rb+"); // matrixA or matrixB
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\B_512.txt", "rb+"); // matrixA or matrixB
         FILE *fpRead = fopen(str_MatrixB, "rb+"); // matrixA or matrixB
 
         if (fpRead == NULL)
@@ -436,10 +394,6 @@ void InitMatrixPI(char* str_MatrixPI)
         printf("malloc failed!!");
         return;
     }
-    // ElementType tmpt[K_STATE]= {0};
-    //  FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixPi500_fixed.txt", "rb+");
-    // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\Pi_512.txt", "rb+");
-    // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\Pi_512.txt", "rb+");
     FILE *fpRead = fopen(str_MatrixPI, "rb+");
 
 
@@ -467,9 +421,6 @@ void InitObRoute(char* str_ObRoute)
 {
     int i, j;
     int tmpt[obserRouteLEN] = {0};
-    // FILE* fpRead3 = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/obRoute5000K500.txt", "rb+");
-    // FILE *fpRead3 = fopen("E:\\Code\\Ccode\\test\\Nvviter\\ob_512.txt", "rb+");
-    // FILE *fpRead3 = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\ob_512.txt", "rb+");
     FILE *fpRead3 = fopen(str_ObRoute, "rb+");
 
     if (fpRead3 == NULL)
@@ -650,33 +601,6 @@ void Viterbifirst(int qpreNode, int qsucNode) // 大于3时的情况
                     double B_data=log(B[i][T_obs]);
                     double pi_data=log(pi[i]);
                     ElementType probability_i = log(pi[i]) + log(B[i][T_obs]); // 初始化T1,用log避免数据下溢出
-                    // if (i<MAX_ELEMENTS-1){
-                    //     insert_binary_tree(position,probability_i ,i);
-                    //     num->Value++;
-                    //     printf("total number is %d ,new element is %lf  ,state is %d  \n",num->Value,position->Value,position->State);
-                    //     position++;
-                    //     }
-                    // else if (i==MAX_ELEMENTS-1){
-                    //     insert_binary_tree(position,probability_i ,i);
-                    //     num->Value++;
-                    //     printf("total number is %d  ,new element is %lf  ,state is %d  \n",num->Value,position->Value,position->State);
-                    //     create_max_heap(heap_total);
-                    //     //输出排序后的结果
-                    //     print_heap_element(heap_total);
-                    //     }
-                    // else{
-                    //     if (probability_i>heap_total[1].Value){
-                    //         printf("\nChange:new element value is %lf state is %d  ,Total min element is %lf  state is %d  \n",probability_i,i,heap_total[1].Value,heap_total[1].State);
-                    //         heap_total[1].Value=probability_i;
-                    //         heap_total[1].State=i;
-                    //         create_max_heap(heap_total);
-                    //         print_heap_element(heap_total);
-                    //         }
-                    //         // 隐去
-                    //     else{
-                    //         printf("Keep:new element value is %lf  state is %d  ,Total min element is %lf  state is %d  \n",probability_i,i,heap_total[1].Value,heap_total[1].State);
-                    //         }
-                    //     }
                     int changestate;
                     int changgelabel = generate_state_heap(probability_i, i, &heap_total, &changestate, -1);
                     // chaneg_T2_i(changestate,changgelabel,i,-1);
@@ -687,12 +611,6 @@ void Viterbifirst(int qpreNode, int qsucNode) // 大于3时的情况
                 heap_pre = heap_total;
                 heap_total = heap_tem;
                 initial_heap_element(heap_total);
-
-
-                // 输出排序后的结果,测试用
-                //  print_heap_element(&heap_pre);
-                //  snvT1[i] = log(pi[i]) + log(B[i][T_obs]); // 初始化T1,用log避免数据下溢出
-                // printf("over:\n");
             }
             else // 其他情况初始一列,若不是初始的列，说明此处是之前的mid列，因此直接找到该列的对应状态，其他初始为0
             {
@@ -703,35 +621,9 @@ void Viterbifirst(int qpreNode, int qsucNode) // 大于3时的情况
                 int State_temp = snvOutPutPath[qpreNode - 1]; //  当前起始对应的状态值
                 for (i = 0; i < K_STATE; i++)                 // 行，对于已经知道的起始元素的起始点（i）时，直接使用第i对应的概率进行后续状态的赋值
                 {
-                    // for (int k = 0; k < K_STATE; k++)
-                    // {
-                    //     scorearr[k] = snvT1[k] + log(A[k][i]) + log(B[i][T_obs]); // 求出所有概率值,用log避免数值下溢出,其中T1已经为log
-                    // }
-                    // int scoreNo = 0;
-                    // ElementType scoreMax = 0;
-                    // int* p = &scoreNo;
-                    // ElementType* q = &scoreMax;
-                    // max_score(scorearr, K_STATE, p, q); //T2存下标，T1是概率
-                    // snvTtmp[i] = scoreMax; // 下溢出
-                    // snvT2[i] = scoreNo;//前半不需要存路径
                     ElementType probability_i = log(A[State_temp][i]) + log(B[i][T_obs]);
                     int changestate;
                     int changgelabel = generate_state_heap(probability_i, i, &heap_total, &changestate, -1);
-                    // chaneg_T2_i(changestate,changgelabel,i,State_temp);
-
-                    // if (!changgelabel){
-                    //     snvT2[i] =  State_temp;}
-                    // else if(changgelabel==1)
-                    // {
-                    //     snvT2[i] =  State_temp;
-                    //     snvT2[changestate] =  -1;
-                    //     print("change stae %d value to %d ,input state %d value to %d\n",changestate,snvT2[changestate],i,snvT2[i]);
-                    // }
-                    // else{
-                    //     snvT2[i] =  -1;
-                    //     print("input stae %d value to %d\n",i,snvT2[i]);
-                    // }
-                    // snvT3[i] = -1;                            // 初始化T3
                 }
                 element *heap_tem = heap_pre;
                 heap_pre = heap_total;
@@ -811,15 +703,6 @@ void Viterbifirst(int qpreNode, int qsucNode) // 大于3时的情况
             heap_pre = heap_total;
             heap_total = heap_tem;
             initial_heap_element(heap_total);
-
-
-            // 输出排序后的结果,测试用
-            //  print_heap_element(&heap_pre);
-            //  Change_T3_element(&heap_pre,snvT3);
-
-            // for (i = 0; i < K_STATE; i++){ // 将暂存概率值拷贝，并更新T3列，T2和T3的迭代更新
-            //         snvT3[i] = snvT2[i];
-            // }
         }
         // 第midpoint+2列到第qsucNode列         6-8
         else 
@@ -848,28 +731,10 @@ void Viterbifirst(int qpreNode, int qsucNode) // 大于3时的情况
                 int changgelabel = generate_state_heap(probability_i, i, &heap_total, &changestate, T3_state); // 与堆内操作合并
                 // chaneg_T2_i(changestate,changgelabel,i,snvT3[heap_pre[scoreNo+1].State]);//后半路径开始保存T2
             } // 将最大的值的下标赋值给
-
-            // if(j=1023)
-            //     printf("over:\n");
-
-            // printf("over:\n");
             element *heap_tem = heap_pre;
             heap_pre = heap_total;
             heap_total = heap_tem;
             initial_heap_element(heap_total);
-
-
-
-
-            // 输出排序后的结果,测试用
-            //  print_heap_element(&heap_pre);
-            //  Change_T3_element(&heap_pre,snvT3);
-
-            // for (i = 0; i < K_STATE; i++) // 将暂存概率值拷贝，并更新T3列，T2和T3的迭代更新
-            // {
-            //     // snvT1[i] = snvTtmp[i];
-            //     snvT3[i] = snvT2[i];
-            // }
         }
     }
     // 此时保存了中间节点路径和最后节点的概率
@@ -895,20 +760,7 @@ void Viterbifirst(int qpreNode, int qsucNode) // 大于3时的情况
 
         snvOutPutPath[qsucNode] = heap_pre[last_max_no+1].State; // 倒数第一个节点值 //?存入最大值
 
-        snvOutPutPath[midpoint] = heap_pre[last_max_no+1].T3_State;    //Find_T3_State(&heap_pre, last_max_no);
-        // snvOutPutPath[midpoint] = snvT3[last_max_no]; // 第midpoint个节点值，最后T2与T3是一样的
-
-        // printf("heap_total 占用的内存大小: %zu 字节\n", sizeof(heap_1));
-        // printf("heap_pre 占用的内存大小: %zu 字节\n", sizeof(heap_2));
-        // printf("scorearr 占用的内存大小: %zu 字节\n", sizeof(scorearr));
-        // printf("snvOutPutPath占用的内存大小: %zu 字节\n", sizeof(snvOutPutPath));
-        // printf("last_max 占用的内存大小: %zu 字节\n", sizeof(last_max));
-        // printf("last_max_no 占用的内存大小: %zu 字节\n", sizeof(last_max_no));
-        // printf("T_obs 占用的内存大小: %zu 字节\n", sizeof(T_obs));
-        // printf("总内存占用大小(不算输出)：%zu 字节\n", sizeof(heap_1) + sizeof(heap_2) + sizeof(scorearr) + sizeof(last_max) + sizeof(last_max_no) + sizeof(T_obs));
-        // printf("总内存占用大小：%zu 字节\n", sizeof(heap_1) + sizeof(heap_2) + sizeof(scorearr) + sizeof(snvOutPutPath) + sizeof(last_max) + sizeof(last_max_no) + sizeof(T_obs));
-
-
+        snvOutPutPath[midpoint] = heap_pre[last_max_no+1].T3_State;    //Find_T3_State(&heap_pre, last_max_no
         printf("\n log lastmax %lf", last_max);  // log值测试
         printf("\n lastmax %lf", exp(last_max)); // 最大路径概率值
     }
@@ -1038,10 +890,10 @@ int exmpleSNVviter()
 {
 
     int excu_i = 0;
-    char* str_MatrixA="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\A_K3965_T256_prob0.075.txt";
-    char* str_MatrixB="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\B_K3965_T256_prob0.075.txt";
-    char* str_MatrixPI="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\Pi_K3965_T256_prob0.075.txt";
-    char* str_ObRoute="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\ob_K3965_T256_prob0.075.txt";
+    char* str_MatrixA="";
+    char* str_MatrixB="";
+    char* str_MatrixPI="";
+    char* str_ObRoute="";
     InitOutputpath();
     InitMatrixA(str_MatrixA);
     InitMatrixB(str_MatrixB);

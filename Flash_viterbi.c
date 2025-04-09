@@ -7,15 +7,6 @@
 #include <time.h>
 #include <windows.h>
 
-// #define STR_LEN     5      
-
-// #define SUPER_K_STATE     20      //状态空间大小为200
-// #define SUPER_T_STATE     20
-// #define FST_SIZE    5       //firstN 大小
-// #define BST_SIZE    5       //bestN 大小
-
-// #define K_STATE     128    //状态空间大小为10
-// #define T_STATE     100    //观测状态大小为10
 
 
 #define K_STATE 3965 // 状态空间大小为10                         修改为K相同的值
@@ -159,116 +150,6 @@ void max_score(ElementType arr[], int arr_count, int* max_temp_no, ElementType* 
     *max_temp = max;
 }
 
-// void InitMatrixA()
-// {
-
-//     int i = 0, j = 0;
-//     ElementType* tmpt = (ElementType*)malloc(sizeof(ElementType) * K_STATE * K_STATE);
-
-//     if (tmpt)
-//     {
-//         //ElementType tmpt[K_STATE*K_STATE]= {0};//大数组下溢出
-//         // FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixA_500plus500_fixed.txt", "rb+");//matrixA or matrixB
-//         // FILE* fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\A.txt", "rb+");//matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
-//         FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\A_512.txt", "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
-
-        
-//         if (fpRead == NULL)
-//         {
-//             printf("open fail errno = %d reason = %s \n", errno, strerror(errno));
-//             return;
-//         }
-//         int retnum = 0;
-//         for (i = 0; i < K_STATE * K_STATE; i++)
-//         {
-//             retnum = fscanf(fpRead, "%lf", &tmpt[i]);//使用fscanf函数从文件中读取一个double类型的数据，并将其存储在tmpt[i]中�?
-//             // printf("%f  ",tmpt[i]);
-//         }
-//         fclose(fpRead);
-
-//         for (i = 0; i < K_STATE; i++)
-//         {
-//             for (j = 0; j < K_STATE; j++)
-//             {
-//                 A[i][j] = tmpt[i * K_STATE + j];
-//             }
-//         }
-//     }
-//     free(tmpt);
-
-// }
-
-// void InitMatrixB()
-// {
-
-//     int i = 0, j = 0;
-//     ElementType* tmpt = (ElementType*)malloc(sizeof(ElementType) * K_STATE * T_STATE);
-//     if (tmpt)
-//     {
-//         //static ElementType tmpt[K_STATE*T_STATE]= {0};
-//         // FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixB_500plus500_fixed.txt", "rb+");//matrixA or matrixB
-//         // FILE* fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\B.txt", "rb+");//matrixA or matrixB
-//         FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\B_512.txt", "rb+"); // matrixA or matrixB
-
-//         if (fpRead == NULL)
-//         {
-//             return;
-//         }
-//         int retnum = 0;
-//         for (i = 0; i < K_STATE * T_STATE; i++)
-//         {
-//             retnum = fscanf(fpRead, "%lf", &tmpt[i]);
-
-//         }
-//         fclose(fpRead);
-
-//         for (i = 0; i < K_STATE; i++)
-//         {
-//             for (j = 0; j < T_STATE; j++)
-//             {
-//                 B[i][j] = tmpt[i * T_STATE + j];
-//             }
-//         }
-//     }
-
-//     free(tmpt);
-
-// }
-
-// void InitMatrixPI()
-// {
-//     int i, j;
-//     ElementType* tmpt = (ElementType*)malloc(sizeof(ElementType) * K_STATE);
-//     if (tmpt == NULL)
-//     {
-//         printf("malloc failed!!");
-//         return;
-//     }
-//     //ElementType tmpt[K_STATE]= {0};
-//     // FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixPi500_fixed.txt", "rb+");
-//     // FILE* fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\Pi.txt", "rb+");
-//     FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\Pi_512.txt", "rb+");
-
-//     if (fpRead == NULL)
-//     {
-//         return;
-//     }
-//     int retnum = 0;
-//     for (i = 0; i < K_STATE; i++)
-//     {
-//         retnum = fscanf(fpRead, "%lf", &tmpt[i]);
-
-//     }
-//     fclose(fpRead);
-//     for (j = 0; j < K_STATE; j++)
-//     {
-//         pi[j] = tmpt[j];
-//     }
-//     printf("\n");
-//     free(tmpt);
-
-//     //
-// }
 
 void InitMatrixA(char* str_MatrixA)
 {
@@ -279,11 +160,6 @@ void InitMatrixA(char* str_MatrixA)
 
     if (tmpt)
     {
-        // ElementType tmpt[K_STATE*K_STATE]= {0};//大数组下溢出
-        //  FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixA_500plus500_fixed.txt", "rb+");//matrixA or matrixB
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\A.txt", "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\A_512.txt", "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\A_512.txt", "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
         FILE *fpRead = fopen(str_MatrixA, "rb+"); // matrixA or matrixB 程序成功打开文件后，fopen()将返回文件指针。文件指针的类型是FILE
 
         if (fpRead == NULL)
@@ -317,10 +193,6 @@ void InitMatrixB(char* str_MatrixB )
     ElementType *tmpt = (ElementType *)malloc(sizeof(ElementType) * K_STATE * T_STATE);
     if (tmpt)
     {
-        // static ElementType tmpt[K_STATE*T_STATE]= {0};
-        //  FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixB_500plus500_fixed.txt", "rb+");//matrixA or matrixB
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\B_512.txt", "rb+"); // matrixA or matrixB
-        // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\B_512.txt", "rb+"); // matrixA or matrixB
         FILE *fpRead = fopen(str_MatrixB, "rb+"); // matrixA or matrixB
 
         if (fpRead == NULL)
@@ -355,10 +227,6 @@ void InitMatrixPI(char* str_MatrixPI)
         printf("malloc failed!!");
         return;
     }
-    // ElementType tmpt[K_STATE]= {0};
-    //  FILE* fpRead = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/matrixPi500_fixed.txt", "rb+");
-    // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\Pi_512.txt", "rb+");
-    // FILE *fpRead = fopen("E:\\Code\\Ccode\\test\\Nvviter\\new512data\\Pi_512.txt", "rb+");
     FILE *fpRead = fopen(str_MatrixPI, "rb+");
 
 
@@ -387,8 +255,6 @@ void InitObRoute(char* str_ObRoute)
 {
     int i, j;
     int tmpt[obserRouteLEN] = { 0 };
-    // FILE* fpRead3 = fopen("C:/Users/DELL/Documents/work/source/Nvvviter/dataset/obRoute5000K500.txt", "rb+");
-    // FILE* fpRead3 = fopen("E:\\Code\\Ccode\\test\\Nvviter\\ob.txt", "rb+");
     FILE *fpRead3 = fopen(str_ObRoute, "rb+");
 
     
@@ -418,9 +284,9 @@ void ViterbiNDivide(int qpreNode, int qsucNode, int N, Queue *Q)
     // (TobsLenth <= 1)
       //  return;
     int i, j;
-    ElementType scorearr[K_STATE] = { 0 }; // 存储所有概率值，用于求最大概�?
+    ElementType scorearr[K_STATE] = { 0 }; 
 
-    int T_obs = Obroute[qpreNode]; // 观测序列初值，第一列观测�?   *当前序列起始的观测�?
+    int T_obs = Obroute[qpreNode]; 
     int midpoint[N+1], gap_length = (qsucNode - qpreNode) / N, gap_extra = (qsucNode - qpreNode) % N;
     midpoint[0] = qpreNode, midpoint[N] = qsucNode; //0无意义
     for(int i = 1; i < N; ++i)
@@ -428,8 +294,6 @@ void ViterbiNDivide(int qpreNode, int qsucNode, int N, Queue *Q)
         midpoint[i] = midpoint[i-1]+gap_length;
         if(gap_extra > 0) gap_extra--, midpoint[i]++;
     }
-    //int (*snv)[N] = (int(*)[N])malloc(sizeof(int)*K_STATE*N);
-    //int (*snv_tmp)[N] = (int(*)[N])malloc(sizeof(int)*K_STATE*N);
     ElementType snvT1[K_STATE];
     ElementType snvTtmp[K_STATE];
     int** snv = (int**)malloc(sizeof(int*)*K_STATE);
@@ -478,11 +342,10 @@ void ViterbiNDivide(int qpreNode, int qsucNode, int N, Queue *Q)
         }
     }
     
-    //此时保存了中间节点路径和最后节点的概率
-    //求最后一个节点的路径,并根据此回溯路径中点，输�?
-    if (qpreNode == 0 && qsucNode == obserRouteLEN-1) //仅第一次执�?
+
+    if (qpreNode == 0 && qsucNode == obserRouteLEN-1) 
     {
-        ElementType last_max = snvT1[0];//回溯处本身为负�?,不要�?0比较
+        ElementType last_max = snvT1[0];
         int last_max_no = 0;
         for (int i = 0; i < K_STATE; i++)
         {
@@ -493,13 +356,12 @@ void ViterbiNDivide(int qpreNode, int qsucNode, int N, Queue *Q)
             }
         }
 
-        snvOutPutPath[qsucNode] = last_max_no;        // 倒数第一个节点�? //?存入最大�?
+        snvOutPutPath[qsucNode] = last_max_no;        
         for(int p = 1; p < N; ++p)
         {
             snvOutPutPath[midpoint[p]] = snv[last_max_no][p];
         }
-        // printf("index space: %zu ",sizeof(int)*N*K_STATE*2);
-        // printf("index&space space: %zu ",(sizeof(int)*K_STATE*2+sizeof(snvT1)+sizeof(snvTtmp))*N);
+
         printf("总占用的内存大小（不算输出）: %zu 字节\n", (sizeof(int)*K_STATE*2+sizeof(snvT1)+sizeof(snvTtmp))*N+(sizeof(scorearr)+sizeof(last_max)+sizeof(last_max_no)+sizeof(T_obs))*MAX_THREADS+sizeof(midpoint));
         printf("总占用的内存大小: %zu 字节\n", (sizeof(int)*K_STATE*2+sizeof(snvT1)+sizeof(snvTtmp))*N+sizeof(snvOutPutPath)+(sizeof(scorearr)+sizeof(last_max)+sizeof(last_max_no)+sizeof(T_obs))*MAX_THREADS+sizeof(midpoint));
         printf("\n log lastmax%f", last_max);//log值测�?
@@ -684,14 +546,6 @@ void Viterbifirst(int qpreNode, int qsucNode)       //大于3时的情况
                 last_max_no = i;
             }
         }
-        // printf("snvT占用的内存大小: %zu 字节\n", sizeof(snvT1)+sizeof(snvT2)+sizeof(snvT3)+sizeof(snvTtmp));
-        // printf("scorearr占用的内存大小: %zu 字节\n", sizeof(scorearr));
-        // printf("snvOutPutPath占用的内存大小: %zu 字节\n", sizeof(snvOutPutPath));
-        // printf("last_max 占用的内存大小: %zu 字节\n", sizeof(last_max));
-        // printf("last_max_no 占用的内存大小: %zu 字节\n", sizeof(last_max_no));
-        // printf("T_obs 占用的内存大小: %zu 字节\n", sizeof(T_obs));
-        // printf("总占用的内存大小: %zu 字节\n", sizeof(scorearr)+sizeof(snvT1)+sizeof(snvT2)+sizeof(snvT3)+sizeof(snvTtmp)+sizeof(snvOutPutPath)+sizeof(last_max)+sizeof(last_max_no)+sizeof(T_obs));
-        // printf("总占用的内存大小（不算输出）: %zu 字节\n", sizeof(scorearr)+sizeof(snvT1)+sizeof(snvT2)+sizeof(snvT3)+sizeof(snvTtmp)+sizeof(last_max)+sizeof(last_max_no)+sizeof(T_obs));
 
 
         snvOutPutPath[qsucNode] = last_max_no;        // 倒数第一个节点�? //?存入最大�?
@@ -700,7 +554,7 @@ void Viterbifirst(int qpreNode, int qsucNode)       //大于3时的情况
         printf("\n log lastmax%f", last_max);//log值测�?
         printf("\n lastmax%f", exp(last_max));//最大路径概率�?
     }
-    else//其余都执�?
+    else
     {
         int connt = snvOutPutPath[qsucNode];//找到当前最末点的状态�?
         snvOutPutPath[midpoint] = snvT3[connt]; //当前路径范围内输出的，将此时T3到该状态点的值进行输�?
@@ -741,17 +595,6 @@ void viter1(int qpreNode, int qsucNode)//pre + 1 = suc,mid = pre  最末端区�
         int State_temp=snvOutPutPath[qpreNode-1]; //  当前起始对应的状态�?
         for (i = 0; i < K_STATE; i++) // �?
         {
-            // for (int k = 0; k < K_STATE; k++)
-            // {
-            //     scorearr[k] = snvT1[k] + log(A[k][i]) + log(B[i][T_obs]); // 求出所有概率�?,用log避免数值下溢出,其中T1已经为log 
-            // }
-            // int scoreNo = 0;
-            // ElementType scoreMax = 0;
-            // int* p = &scoreNo;
-            // ElementType* q = &scoreMax;
-            // max_score(scorearr, K_STATE, p, q); //T2存下标，T1是概�?
-            // snvTtmp[i] = scoreMax; // 下溢�?
-            // snvT2[i] = scoreNo;//前半不需要存路径
             snvT2[i] =  State_temp;
             snvTtmp[i]= log(A[State_temp][i]) + log(B[i][T_obs]);
         }
@@ -784,8 +627,7 @@ void viter1(int qpreNode, int qsucNode)//pre + 1 = suc,mid = pre  最末端区�
         snvT1[i] = snvTtmp[i];
     }
 
-    //此时保存了中间节点路径和最后节点的概率
-    //求最后一个节点的路径,并根据此回溯路径中点，输�?
+
 
         int connt = snvOutPutPath[qsucNode];
         snvOutPutPath[qpreNode] = snvT2[snvOutPutPath[qsucNode]]; //当前路径范围内输出的
@@ -805,7 +647,6 @@ void viter2(int qpreNode, int qsucNode)//pre+1 = mid,mid+1 = suc   最末端区�
     ElementType scorearr[K_STATE] = { 0 }; // 存储所有概率值，用于求最大概�?
     int T_obs = Obroute[qpreNode]; // 观测序列初�?
     int midpoint = qpreNode +1;  //path的中间节�?,运行结束后得到当前Path[midpoint]
-    //snvOutPutPath[midpoint - 1] = -1; // init path[midpoint-1]
     ElementType snvT1[K_STATE];       // T1_table,prob
     ElementType snvTtmp[K_STATE];       // T1_table,save for last prob
     int snvT2[K_STATE];               // T2_table,path
@@ -825,17 +666,6 @@ void viter2(int qpreNode, int qsucNode)//pre+1 = mid,mid+1 = suc   最末端区�
         int State_temp=snvOutPutPath[qpreNode-1]; //  当前起始对应的状态�?
         for (i = 0; i < K_STATE; i++) // �?
         {
-            // for (int k = 0; k < K_STATE; k++)
-            // {
-            //     scorearr[k] = snvT1[k] + log(A[k][i]) + log(B[i][T_obs]); // 求出所有概率�?,用log避免数值下溢出,其中T1已经为log 
-            // }
-            // int scoreNo = 0;
-            // ElementType scoreMax = 0;
-            // int* p = &scoreNo;
-            // ElementType* q = &scoreMax;
-            // max_score(scorearr, K_STATE, p, q); //T2存下标，T1是概�?
-            // snvTtmp[i] = scoreMax; // 下溢�?
-            // snvT2[i] = scoreNo;//前半不需要存路径
             snvT2[i] =  State_temp;
             snvTtmp[i]= log(A[State_temp][i]) + log(B[i][T_obs]);
         }
@@ -845,7 +675,7 @@ void viter2(int qpreNode, int qsucNode)//pre+1 = mid,mid+1 = suc   最末端区�
         }
     }
 
-    //for (j = midpoint; j < midpoint + 1; j++)      // 第midpoint-1�?
+
     T_obs = Obroute[midpoint];           // 更新观测序列当前�?
     for (i = 0; i < K_STATE; i++) // �?
     {
@@ -889,9 +719,6 @@ void viter2(int qpreNode, int qsucNode)//pre+1 = mid,mid+1 = suc   最末端区�
         snvT1[i] = snvTtmp[i];
     }
 
-
-    //此时保存了中间节点路径和最后节点的概率
-    //求最后一个节点的路径,并根据此回溯路径中点，输�?
     
     snvOutPutPath[midpoint] = snvT2[snvOutPutPath[qsucNode]]; //当前路径范围内输出的
     
@@ -901,7 +728,7 @@ void viter2(int qpreNode, int qsucNode)//pre+1 = mid,mid+1 = suc   最末端区�
 void printRoute()//输出路径
 {
 
-    printf("\n隐状态最可能路径长度为%d,路径为：\n", obserRouteLEN);
+    printf("\npathlenth%d,路径为：\n", obserRouteLEN);
 
     for (int i = 0; i < obserRouteLEN; i++)
     {
@@ -985,7 +812,7 @@ void tracebackroute()//space主体        调用刚刚主体的代�?
     int* qsuc = &suc;
     ThreadPool pool;
     ThreadPoolInit(&pool);
-    printf("队列Q占用的内存大小: %zu 字节\n", sizeof(pool.Q));
+    printf("Qmemory: %zu 字节\n", sizeof(pool.Q));
     int Ndivide = MAX_THREADS;
     if(suc - pre >= 2*Ndivide)
     {
@@ -1010,10 +837,10 @@ int exmpleSNVviter()
 {
 
     int excu_i = 0;
-    char* str_MatrixA="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\A_K3965_T256_prob0.075.txt";
-    char* str_MatrixB="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\B_K3965_T256_prob0.075.txt";
-    char* str_MatrixPI="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\Pi_K3965_T256_prob0.075.txt";
-    char* str_ObRoute="E:\\Code\\Ccode\\test\\Nvviter\\new512data\\ob_K3965_T256_prob0.075.txt";
+    char* str_MatrixA="";
+    char* str_MatrixB="";
+    char* str_MatrixPI="";
+    char* str_ObRoute="";
     InitOutputpath();
     InitMatrixA(str_MatrixA);
     InitMatrixB(str_MatrixB);
@@ -1023,7 +850,7 @@ int exmpleSNVviter()
     QueryPerformanceCounter(&t1);   // time
     tracebackroute();
     QueryPerformanceCounter(&t2);                                                           // time
-    printf("\nNvvVITERBI_time:%lf s", (double)(t2.QuadPart - t1.QuadPart) / (double)tc.QuadPart); // time
+    printf("\nFLASHVITERBI_time:%lf s", (double)(t2.QuadPart - t1.QuadPart) / (double)tc.QuadPart); // time
     printRoute();//输出路径
     printf("\nthank\n");
     return 1;
