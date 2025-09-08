@@ -96,12 +96,12 @@ Edit `run.py` to specify:
 python3 run.py
 ```
 
-`run.py` will set each parameter in the array `parameters` for each program in the array `file_names` . The running results will be saved separately by program name to the result_math directory and stored in CSV format.
+`run.py` will set each parameter in the array `parameters` for each program in the array `file_names` . The running results will be saved separately by program name to the result_math directory and stored in CSV format. Please place all tested code and `run.by` in the same directory before running.
 
 It should be noted that some parameters are invalid for some programs:
 
-- `parameter['MAX_THREADS']` only works in `FLASH_Viterbi_multithread` and `FLASH_BS_Viterbi_multithread``
-- ``parameter['BeamSearchWidth']` only works in `FLASH_BS_Viterbi_multithread` ,  `SIEVE-BS` and `SIEVE-BS-Mp`
+- `parameter['MAX_THREADS']` only works in `FLASH_Viterbi_multithread` and `FLASH_BS_Viterbi_multithread`
+- `parameter['BeamSearchWidth']` only works in `FLASH_BS_Viterbi_multithread` ,  `SIEVE-BS` and `SIEVE-BS-Mp`
 
 ### Run single code
 
