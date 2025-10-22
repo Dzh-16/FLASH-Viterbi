@@ -1,21 +1,37 @@
-# FLASH Viterbi
+# FLASH Viterbi: Fast and Adaptive Viterbi Decoding for Modern Data Systems
+
+![](docs/cover_fig.png)
+This repository provides optimized C implementations of Viterbi decoding for Hidden Markov Models (HMMs). The mission is to help practitioners easily and efficiently apply the Viterbi algorithm to solve problems.
+
+[**Included Methods**](#included-methods) 
+| [**Key Features**](#key-features) 
+| [**Implementations**](#implementations) 
+| [**Usage**](#usage) 
+| [**Data Generation**](#data-generation)
+| [**Takeaways**](#takeaways)
+| [**Citation**](#citation)
 
 
+## Included Methods
 
-## Overview
+This repository includes our proposed FLASH VITERBI and its beam search variant FLASH-BS VITERBI. 
+1. **FLASH Viterbi** — a full-state-space Viterbi with parallel divide-and-conquer dynamic programming.
+2. **FLASH-BS Viterbi** — an extension of the above with dynamic Beam Search pruning for improved efficiency.
 
-This repository provides optimized C implementations of Viterbi decoding for Hidden Markov Models (HMMs). It includes:
-
-1. **FLASH_Viterbi_multithread.c** — a full-state-space Viterbi with parallel divide-and-conquer dynamic programming.
-2. **FLASH_BS_Viterbi_multithread.c** — an extension of the above with dynamic Beam Search pruning for improved efficiency.
-
-The codebase also includes baseline Viterbi algorithms for performance and memory comparisons. All implementations are written in portable C and designed for high-performance execution on Linux/Unix-like environments.
-
+It also includes baseline Viterbi algorithms for performance and memory comparisons. All implementations are re-written and optimized in C, which are designed for high-performance execution on Linux/Unix-like environments. The baselines include vanilla Viterbi, checkpoint Viterbi, SIEVE-Mp, SIEVE-BS, and SIEVE-BS-Mp.
 
 
 ## Key Features
 
-### General Features
+Key features of FLASH Viterbi and its variant are as follows.
+- *Fast* execution with the help of non-recursive design, pruning, and parallelization.
+- *Lightweight* memory usage with the help of non-recursive design, pruning, and parallelization.
+- *Adaptive* to diverse development scenarios by dynamically tuning internal paramaters.
+- *Hardware-friendly* properties due to non-recursive structures, the elimination of BFS
+traversal, and double-buffered memory schemes.
+
+
+## Implementations
 
 - **POSIX multithreading**: Uses `pthread` for efficient parallel computation.
 - **Divide-and-conquer decoding**: Splits the sequence into segments for concurrent computation.
@@ -31,14 +47,11 @@ The codebase also includes baseline Viterbi algorithms for performance and memor
 ### FLASH_BS_Viterbi_multithread.c:
 
 - Integrates **dynamic Beam Search** using a min-heap to maintain the top-B paths.
-
 - Reduces both runtime and memory usage when `B << K`.
 
-  
+### Baseline Algorithms
 
-## Baseline Algorithms
-
-All baseline algorithms were originally available as open-source Python implementations, relying heavily on Python-specific libraries. Since C provides finer-grained control over multi-threading and memory management—**making it more suitable for deployment on resource-constrained edge devices**—we implemented our proposed FLASH Viterbi and FLASH-BS Viterbi in C. For fair comparison, we also re-implemented all baselines in C and verified that their outputs match those of the original Python versions, including :
+All baseline algorithms were originally available as open-source Python implementations, relying heavily on Python-specific libraries. Since C provides finer-grained control over multi-threading and memory management—**making it more suitable for deployment on resource-constrained edge devices**—we implemented our proposed FLASH Viterbi and FLASH-BS Viterbi in C. For fair comparison, we also re-implemented all baselines in C and verified that their outputs match those of the original Python versions, including:
 
 - **Vanilla Viterbi**: the standard Viterbi algorithm;  
 - **Checkpoint Viterbi**: stores intermediate decoding states every $\sqrt{T}$  steps to reduce memory usage; 
@@ -56,6 +69,19 @@ We have placed the C implementations of each baseline algorithm in the **Base_li
 For detailed instructions, refer to the **README.Usage** section.
 
 In addition, we provide the original Python implementations of the baselines for reference in the **Base_line\Python implementations** directory. All baseline algorithms are integrated into **Baseline.py**, where you can run the code to obtain the time and memory consumption for each algorithm. These metrics are saved in the current folder as a `.txt` file. Due to the complexity of memory usage in the decoding algorithms,  we provide detailed memory consumption, including the memory used by variables during decoding, the memory required for the final output paths, and the maximum memory usage during BFS operations for algorithms involving BFS. 
+
+
+### Hardware Implementations
+
+In addition to the software-based implementations of the Viterbi algorithm, hardware-accelerated versions are also available. These implementations are written in Verilog and are designed to run on the Vivado 2019.2 platform.
+
+#### 1. `FLASH_BS_viterbi_hw.bit`
+
+Hardware implementation of the basic FLASH Viterbi algorithm, performing full state-space decoding.
+
+#### 2. `FLASH_viterbi_hw.bit`
+
+Hardware implementation of FLASH Viterbi with dynamic Beam Search for faster decoding and lower memory usage.
 
 
 
@@ -205,23 +231,21 @@ python data_script_dag.py -s <seed> -n <n_ob> -K <K> -T <T>
 - `ob_K{K}_T{T}_DAG.txt` – Observation sequence
 
 
-
-## Performance Notes
+## Takeaways
 
 - The FLASH_BS_Viterbi implementation is more memory-efficient for large state spaces
 - The FLASH_Viterbi implementation may be faster for small state spaces
 - Actual performance depends on observation sequence length and available cores
 
 
+## Citation
 
-## Hardware Implementations
-
-In addition to the software-based implementations of the Viterbi algorithm, hardware-accelerated versions are also available. These implementations are written in Verilog and are designed to run on the Vivado 2019.2 platform.
-
-### 1. `FLASH_BS_viterbi_hw.bit`
-
-Hardware implementation of the basic FLASH Viterbi algorithm, performing full state-space decoding.
-
-### 2. `FLASH_viterbi_hw.bit`
-
-Hardware implementation of FLASH Viterbi with dynamic Beam Search for faster decoding and lower memory usage.
+If you find FLASH Viterbi useful, please consider citing our paper.
+```
+@inproceedings{deng2026flash,
+  title={FLASH Viterbi: Fast and Adaptive Viterbi Decoding for Modern Data Systems},
+  author={Deng, Ziheng and Liu, Xue and Jiang, Jiantong and Li, Yankai and Deng, Qingxu and Yang, Xiaochun},
+  booktitle={IEEE International Conference on Data Engineering (ICDE)},
+  year={2026},
+}
+```
