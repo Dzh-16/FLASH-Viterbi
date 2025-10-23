@@ -1,7 +1,9 @@
 # FLASH Viterbi: Fast and Adaptive Viterbi Decoding for Modern Data Systems
 
-![](docs/cover_fig.png)
+![](docs/cover_fig.jpg)
 This repository provides optimized C implementations of Viterbi decoding for Hidden Markov Models (HMMs). The mission is to help practitioners easily and efficiently apply the Viterbi algorithm to solve problems.
+
+🔗 Paper link: <https://arxiv.org/abs/2510.19301>
 
 [**Included Methods**](#included-methods) 
 | [**Key Features**](#key-features) 
