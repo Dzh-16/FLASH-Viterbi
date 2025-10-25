@@ -1,4 +1,19 @@
-# FLASH Viterbi: Fast and Adaptive Viterbi Decoding for Modern Data Systems
+<div align="center">
+<h1>FLASH Viterbi: Fast and Adaptive Viterbi Decoding for Modern Data Systems</h1>
+
+</div>
+<div align="center">
+<b><a href="https://github.com/Dzh-16">Ziheng Deng</a></b><sup>1</sup>,
+<b><a href="http://www.cse.neu.edu.cn/2019/0813/c6641a157482/page.htm">Xue Liu</a></b><sup>1</sup>,
+<b><a href="https://jjiantong.github.io/">Jiantong Jiang</a></b><sup>2</sup>,
+<b>Yankai Li</b><sup>1</sup>,
+<b><a href="http://www.neu-rtes.org/~dengqx/">Qingxu Deng</a></b><sup>1</sup>,
+<b><a href="https://scholar.google.com/citations?user=zMYeuzMAAAAJ&hl=en">Xiaochun Yang</a></b><sup>1</sup>,
+</div>
+<div align="center">
+<sup>1</sup>Northeastern University, China
+<sup>2</sup>The University of Melbourne, Australia
+</div>
 
 ![](docs/cover_fig.jpg)
 This repository provides optimized C implementations of Viterbi decoding for Hidden Markov Models (HMMs). The mission is to help practitioners easily and efficiently apply the Viterbi algorithm to solve problems.
